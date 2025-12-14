@@ -1,0 +1,117 @@
+# Flight Panel Requirements
+# Python dependencies for Android and Desktop versions
+
+# ============================================================================
+# CORE DEPENDENCIES (Desktop + Android)
+# ============================================================================
+numpy>=1.24.0
+skyfield>=1.46
+madgwick-py>=1.2.0
+ahrs>=0.3.1
+python-dateutil>=2.8.2
+
+# ============================================================================
+# COMPUTER VISION (Desktop Development)
+# ============================================================================
+# CRITICAL: OpenCV is handled differently for Desktop vs Android
+# 
+# Desktop: Use opencv-python (precompiled wheel)
+# Android: Use 'opencv' recipe in buildozer.spec (compiled by p4a)
+# 
+# For Desktop development/testing:
+opencv-python>=4.8.0
+# For headless servers (no GUI):
+# opencv-python-headless>=4.8.0
+
+# For image processing:
+Pillow>=10.0.0
+
+# ============================================================================
+# EMAIL & SOCIAL NETWORKS
+# ============================================================================
+# Gmail SMTP support (built-in Python smtplib, no extra package needed)
+# For advanced email features:
+# email-validator>=2.0.0
+
+# ============================================================================
+# ANDROID FRAMEWORK (Kivy)
+# ============================================================================
+kivy>=2.2.0
+plyer>=2.1.0
+pyjnius>=1.4.2
+
+# ============================================================================
+# DESKTOP FRAMEWORK (Optional - Qt Alternative)
+# ============================================================================
+# Uncomment for desktop-only Qt version:
+# PySide6>=6.5.0
+
+# ============================================================================
+# NETWORKING & HTTP
+# ============================================================================
+requests>=2.31.0
+
+# ============================================================================
+# CRYPTOGRAPHY & SECURITY
+# ============================================================================
+# For AES-256 encryption (steganography payload)
+cryptography>=41.0.0
+
+# For Ed25519 digital signatures (reflex verification)
+# (included in cryptography>=35.0.0)
+
+# For blockchain integration (TON)
+ton>=0.1.0  # TON Python SDK (if available)
+# Alternative: use direct HTTP API to toncenter.com
+
+# ============================================================================
+# STEGANOGRAPHY & IMAGE PROCESSING
+# ============================================================================
+# For LSB steganography in images
+Pillow>=10.0.0  # Already added above
+numpy>=1.24.0   # Already added above
+
+# Optional: Advanced steganography libraries
+# stegano>=0.11.2  # High-level stego library (optional)
+# stepic>=0.5.0    # Another stego library (optional)
+
+# ============================================================================
+# GPS & GEOSPATIAL
+# ============================================================================
+pyproj>=3.6.0
+kivy-garden.mapview>=1.0.6
+
+# ============================================================================
+# DRONE COMMUNICATION (Optional)
+# ============================================================================
+pymavlink>=2.4.8
+pyserial>=3.5
+
+# ============================================================================
+# DEVELOPMENT & TESTING
+# ============================================================================
+pytest>=7.4.0
+black>=23.7.0
+flake8>=6.1.0
+mypy>=1.5.0
+aiosqlite>=0.17.0
+gym>=0.26.0
+mcp>=0.1.0
+pandas>=2.0.0
+typer>=0.9.0
+uvicorn>=0.23.0
+websockets>=11.0
+
+# ============================================================================
+# NOTES FOR ANDROID BUILD
+# ============================================================================
+# When building with buildozer:
+# 1. opencv-python is NOT included in APK
+# 2. buildozer.spec uses 'opencv' recipe instead
+# 3. p4a compiles opencv natively for ARM (reduces APK size)
+# 4. Recipe provides same cv2 module interface
+# 
+# buildozer.spec requirements line should contain:
+# requirements = python3,kivy,numpy,opencv,...
+# 
+# DO NOT add opencv-python to buildozer requirements!
