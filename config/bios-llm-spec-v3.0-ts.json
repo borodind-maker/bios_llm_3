@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "https://schemas.smartbees.org/bios-llm-v3.0-ts",
+  "title": "BIOS-LLM v3.0-TS Ternary-Efficiency Specification",
+  "version": "3.0-TS",
+  "status": "normative",
+  "scope": "LLM behaviour during charging only",
+  "definitions": {
+    "information_gain": {
+      "description": "bits, log2(3) * N * (1 - H)",
+      "type": "number",
+      "minimum": 0
+    },
+    "energy_cost": {
+      "description": "USD, E_wh * price_per_wh",
+      "type": "number",
+      "minimum": 0
+    },
+    "eta": {
+      "description": "bits per USD, information_gain / max(cost, 0.01)",
+      "type": "number",
+      "minimum": 0
+    },
+    "ternary_symbol": {
+      "type": "integer",
+      "enum": [-1, 0, 1]
+    },
+    "reward_scale": {
+      "description": "z-score, mu=0, sigma=1",
+      "type": "number"
+    }
+  },
+  "encoding": {
+    "z_to_symbol": {
+      "z < -1.0": -1,
+      "-1.0 <= z <= 1.0": 0,
+      "z > 1.0": 1
+    },
+    "uncertainty_override": "force 0 if uncertainty_metric > 0.7"
+  },
+  "reflex_dsl": {
+    "$ref": "schemas/reflex-ternary-v3.json"
+  },
+  "reporting_template": "ETA: {eta} bit/USD\\nReflexes added: {count}\\nTags updated: {tags}\\nUncertainty zones: {zones}\\n<end>",
+  "versioning": {
+    "major": 3,
+    "minor": 0,
+    "patch": "TS",
+    "sha256": "b5c7e2a1c6d9f4e8a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8"
+  }
+}
