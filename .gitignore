@@ -1,0 +1,71 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# ======================
+# Virtual Environments
+# ======================
+env/
+venv/
+.env
+
+# ======================
+# Packaging / Build Artifacts
+# ======================
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ======================
+# Tests / Coverage
+# ======================
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ======================
+# Type Checking / Linters
+# ======================
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# ======================
+# Project Specific
+# ======================
+data/user_config.json
+data/cache.json
+*.log
+*.tmp
+
+# ======================
+# Kivy / Buildozer
+# ======================
+.buildozer/
+bin/
+*.apk
+*.aab
+flightpanel.spec
+
+# ======================
+# IDEs
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# Mission Routes (SENSITIVE DATA – flat structure)
+# ======================
+way/*.json
+way/*_mavlink.json
+
+# Keep structure
+!way/README.md
+!way/.gitkeep
