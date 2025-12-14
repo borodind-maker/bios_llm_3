@@ -1,4 +1,4 @@
-# 🧠 SmartBeesSwam 3CY LLM: BIOS-LLM v3.0-TS
+# 🧠 SmartBeesSwarm 3CY LLM: BIOS-LLM v3.0-TS
 
 ![Release](https://img.shields.io/badge/Release-v3.0--TS-blue)
 ![Status](https://img.shields.io/badge/Status-NORMATIVE-green)
@@ -9,10 +9,11 @@
 
 ## **📖 Overview**
 
-The **SmartBees LLM System** provides on-device intelligence for autonomous drones, enabling offline decision-making, strategic analysis, and multimodal processing.
+The **SmartBeesSwarm 3CY LLM System** provides on-device intelligence for autonomous drones, enabling offline decision-making, strategic analysis, and multimodal processing.
 
 At its core lies **BIOS-LLM v3.0-TS**, a ternary-efficient layer that operates during the drone's "Dream State" (charging mode). Instead of binary success/failure, it utilizes **Balanced Ternary Logic** (-1, 0, +1) to maximize information density per watt of energy consumed during the learning process.
-
+- ⚛️ **[Quantum Roadmap](QUANTUM_ARCH.md)** - Qutrit implementation & future hybrid architecture
+  
 ## 🔗 Quick Links
 - 📄 **[Full Specification](bios_llm_spec_v3.0_TS.txt)** - Complete normative text
 - 🏷️ **[Latest Release](https://github.com/borodind-maker/bios_llm_3/releases)** - Version history
