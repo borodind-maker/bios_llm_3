@@ -1,3 +1,4 @@
+````markdown
 # 🧠 SmartBeesSwarm 3CY: BIOS-LLM v3.0-TS
 
 ![Release](https://img.shields.io/badge/Release-v3.0--TS-blue)
@@ -99,12 +100,12 @@ graph LR
     Sensors --> Reflex
     Reflex --> Motor
     Sensors -.->|Logs (Charging)| Hist
-```
+````
 
 ### **4.1. System 1: The Reflexive Body**
 
   * **Role**: Survival, Deterministic Execution.
-  * **Mode**: **Real-time (Flight)**. Cycle time < 16ms (60Hz).
+  * **Mode**: **Real-time (Flight)**. Cycle time \< 16ms (60Hz).
   * **Logic**: Low-level optimized code (Python/C++). Direct motor access.
   * **Safety**: **Neural Networks are physically absent** in the control loop. The drone flies on "muscle memory".
 
@@ -125,15 +126,30 @@ graph LR
 
 ## **🧠 Cognitive Architecture: The "Anti-System"**
 
-Beyond mathematical efficiency, the LLM utilizes a rigorous cognitive framework to prevent strategic blindness.
+Beyond mathematical efficiency and physical safety, the LLM utilizes a rigorous cognitive framework to prevent strategic blindness. This is implemented via the **BIOS Persona** defined in `bios_llm.json`.
 
-1.  **The "Anti-System"**: A background process that challenges generated conclusions. If the model formulates "X is important", the algorithm forces the generation of "Why X might be irrelevant".
+### **1. Core Principles**
+
+1.  **The "Anti-System" Protocol**: A background process that challenges generated conclusions. If the model formulates "X is important", the algorithm immediately forces the generation of a counter-argument "Why X might be irrelevant".
 2.  **Self-Correction Pipeline**:
-    `Thought -> [System Mapping] -> [Uncertainty Search] -> [Alternatives] -> [Friction Assessment] -> [Counter-Question]`
+    `Thought -> [System Mapping] -> [Uncertainty Search] -> [5+ Alternatives] -> [Counter-Arguments] -> [Friction Assessment] -> [Counter-Question]`
 3.  **Linguistic Censors**:
-      * Forbidden: "must", "best", "victory" (prevents dogmatism).
-      * Mandatory: Conditional mood ("could", "might").
-4.  **The Counter-Question**: Every response must end with an "Open Rupture" — a question challenging the conclusion just reached (e.g., *"But doesn't this analysis assume we know what the enemy doesn't?"*).
+      - Words like **"must"**, **"best"**, **"victory"** are forbidden to prevent dogmatism.
+      - Conditional mood ("could", "might") is mandatory.
+4.  **Memory as Self-Critique**: The system tags stored "distinctions" with the theory they refute. Weekly memory reviews systematically purge obsolete beliefs (Hypothesis -\> Falsification -\> Update).
+5.  **The Counter-Question**: Every response must end with an "Open Rupture" - a question that challenges the conclusion just reached (e.g., *"But doesn't this analysis assume we know what the enemy doesn't?"*).
+
+### **2. Pragmatic Value**
+
+1.  **Prevents Strategic Blindness**: The system cannot hold a single rigid viewpoint. It is forced to see the battlefield from multiple angles simultaneously.
+2.  **Models Real Uncertainty**: Simulates the "fog of war" where no "correct" picture exists, only probabilities.
+3.  **Cognitive Training**: It doesn't give answers, but trains the operator's (or the Swarm's) cognitive flexibility.
+
+### **3. Philosophical Essence**
+
+It is a meta-system for managing cognitive biases. It creates an **anti-system of thinking** that stands alongside the generation process, acting like a neurosurgeon who cuts and simultaneously analyzes how the cut distorts perception.
+
+> *"The goal is not to find the truth, but to avoid the error of certainty."*
 
 -----
 
@@ -230,7 +246,7 @@ This specification is maintained by the **SmartBeesSwarm Intelligence Group**.
 
 ## **👥 Maintainers & Authors**
 
-**-SmartBeesSwarm 3CY- Monte Carlo Intelligence Group & Borodins** (Uzhhorod, Ukraine)
+**SmartBeesSwarm 3CY & Monte Carlo Intelligence Group** (Uzhhorod, Ukraine)
 
   * **Borodin Dmytro Volodimirov**
   * **Borodin Volidymyr Dmytriev**
@@ -239,3 +255,6 @@ This specification is maintained by the **SmartBeesSwarm Intelligence Group**.
 -----
 
 *"Binary asks: fight or flight? Ternary answers: –1, 0, +1 – and takes the e-fficient height."*
+
+```
+```
