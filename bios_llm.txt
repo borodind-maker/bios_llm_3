@@ -1,0 +1,124 @@
+📄 BIOS-LLM v3.0-TS  
+Ternary-Efficiency Technical Specification  
+Version: 3.0-TS-2025-06-24  
+Status: NORMATIVE  
+Scope: LLM behaviour during charging only  
+
+---
+
+ 1 Normative Definitions
+
+| Term | Value / Unit | Notes |
+|------|--------------|-------|
+| information_gain | log₂3 · 𝑁 · (1 − 𝐻) | bits, 𝑁 = valid ternary symbols, 𝐻 = empirical entropy |
+| energy_cost | E / 3600 · P | USD, E = Wh consumed by LLM session, P = price_per_Wh from settings |
+| η (eta) | information_gain / max(cost, 0.01 USD) | target ≥ 1 bit/USD |
+| ternary_symbol | ∈ {–1, 0, +1} | encoded via Table 2 |
+| reward_scale | z-score | μ = 0, σ = 1 across last 1000 episodes |
+
+---
+
+ 2 Ternary Encoding Schema (normative)
+
+| Range (z-score) | Symbol | Mask-bit |
+|-----------------|--------|----------|
+| z < –1.0        | –1     | 10       |
+| –1.0 ≤ z ≤ 1.0  | 0      | 00       |
+| z > 1.0         | +1     | 01       |
+
+Uncertainty override:  
+if uncertainty_metric > 0.7 → force 0 (mask 00).
+
+---
+
+ 3 JSON DSL Schema (reflex definition)
+
+```json
+{
+  "$schema": "https://schemas.smartbees.org/reflex-ternary-v3.json",
+  "name": "CAMEL_CASE_UNIQUE",
+  "description": "max 90 chars",
+  "ternary_trigger": {
+    "pattern": [-1, 0, 1],     // exact ternary mask
+    "window_sec": 5,           // 1–60, int
+    "tolerance": 1,            // Hamming distance ≤ tolerance
+    "sampling_hz": 20          // must divide 60 Hz
+  },
+  "action_strategy": { / unchanged from v2 / },
+  "priority": 50,              // 0–200
+  "cooldown": 5.0,             // ≥ 3.0 s
+  "source": "LLM_EVOLUTION",
+  "risk_level": "MEDIUM"
+}
+```
+
+Hamming distance counted over positions where pattern ≠ 0 (don’t-care positions absent).
+
+---
+
+ 4 Route-Segment Ternary Tag Tuple
+
+```json
+[risk, stealth, speed] ∈ {–1, 0, 1}³
+```
+
+Semantic mapping (normative):
+
+| Axis | –1 | 0 | +1 |
+|------|----|---|----|
+| risk | low | unknown | high |
+| stealth | passive | neutral | active |
+| speed | slow | cruise | fast |
+
+---
+
+ 5 Economic-Optimality Checkpoint (pseudo-code)
+
+```python
+def ternary_optimality_check():
+    traces = memory_space.list_like('ternary_trace_%')
+    if not traces: return   avoid div-zero
+    total_symbols = sum(len(t) for t in traces)
+    entropy = empirical_entropy(traces)   Shannon, base 3
+    information_gain = log2(3)  total_symbols  (1 - entropy)
+    energy_wh = get_session_energy()   from hardware log
+    price_per_wh = settings.price_per_wh  // $/Wh
+    cost = energy_wh  price_per_wh
+    eta = information_gain / max(cost, 0.01)
+    log_metric("eta_bits_per_usd", eta)
+    if eta < 1.0:
+        log_warning("η < 1 – below ternary optimum")
+```
+
+---
+
+ 6 Reporting Template (mandatory)
+
+```
+BIOS-LLM-v3.0-TS session end
+ETA: 2.34 bit/USD
+Reflexes added: 3 (–1×1, 0×1, +1×1)
+Tags updated: 5 segments
+Uncertainty zones: 7
+Next flight ternary mask seed: [0,–1,0,1,0]
+<end>
+```
+
+---
+
+ 7 Versioning & Compatibility
+
+- Major change → bump first digit (breaking DSL).  
+- Metric or threshold tweak → bump minor digit (non-breaking).  
+- This file is stored in `config/bios-llm-spec-v3.0-ts.json` and hashed with SHA-256 for integrity.
+
+---
+
+ Appendix A (informative only)
+
+> «Binary asks: fight or flight?  
+> Ternary answers: –1, 0, +1 – and takes the e-fficient height.»
+
+---
+
+🔋 End of normative text.
