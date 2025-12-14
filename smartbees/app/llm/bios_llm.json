@@ -1,0 +1,19 @@
+{
+"spec_version": "3.0-TS-2025-06-24",
+"status": "NORMATIVE",
+"scope": "Charging Mode Only",
+"ternary_encoding": {
+"reward_scale": "z-score",
+"threshold_low": -1.0,
+"threshold_high": 1.0,
+"uncertainty_override": 0.7
+},
+"economics": {
+"information_base": 3,
+"min_cost_floor_usd": 0.01,
+"target_eta": 1.0
+},
+"reporting": {
+"template": "BIOS-LLM-v3.0-TS session end\nETA: {eta:.2f} bit/USD\nReflexes added: {new_count} ({stats})\nTags updated: {tags_count} segments\nUncertainty zones: {zones_count}\nNext flight ternary mask seed: {seed_mask}\n<end>"
+}
+}

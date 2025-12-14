@@ -1,86 +1,57 @@
 BIOS-LLM v3.0-TS: TERNARY-EFFICIENCY TECHNICAL SPECIFICATION
-============================================================
+
+\============================================================
 Version: 3.0-TS-2025-06-24
 Status: NORMATIVE
 Scope: Charging Mode Only (Dream State)
 Maintainer: SmartBeesSwarm Intelligence Group
 
-1. NORMATIVE DEFINITIONS
-------------------------
+1.  NORMATIVE DEFINITIONS
+
+-----
+
 1.1. Information Gain (I)
-     Formula: I = log2(3) * N * (1 - H)
-     Unit: bits
-     Where:
-       - log2(3) ≈ 1.58496 (information density of a trit)
-       - N = Number of valid ternary symbols in trace
-       - H = Empirical entropy of the trace (0.0 to 1.0)
+Formula: I = log2(3) \* N \* (1 - H)
+Unit: bits
 
 1.2. Energy Cost (C)
-     Formula: C = E_total * P_rate
-     Unit: USD
-     Where:
-       - E_total = Total energy consumed by LLM session (Wh)
-       - P_rate = Price per Wh (read from settings.json)
+Formula: C = E\_total \* P\_rate
+Unit: USD
 
 1.3. Efficiency (η)
-     Formula: η = I / max(C, 0.01)
-     Target: η ≥ 1.0 bit/USD
+Formula: η = I / max(C, 0.01)
+Target: η ≥ 1.0 bit/USD
 
 1.4. Ternary Symbol Set
-     Set: {-1, 0, +1}
-     Semantics:
-       -1 : Failure / Low / Threat / Negative Reward
-        0 : Uncertainty / Neutral / Normal / Unknown
-       +1 : Success / High / Advantage / Positive Reward
+Set: {-1, 0, +1}
+Semantics:
+\-1 : Failure / Low / Threat / Negative Reward
+0 : Uncertainty / Neutral / Normal / Unknown
+\+1 : Success / High / Advantage / Positive Reward
 
-2. TERNARY ENCODING SCHEMA
---------------------------
-Raw telemetry must be normalized using Z-Score (μ=0, σ=1 across last 1000 episodes).
+2.  TERNARY ENCODING SCHEMA
 
+-----
+
+Raw telemetry must be normalized using Z-Score.
 Mapping Rules:
-  IF uncertainty_metric > 0.7 THEN symbol = 0
-  ELSE IF z-score < -1.0      THEN symbol = -1
-  ELSE IF z-score > +1.0      THEN symbol = +1
-  ELSE                             symbol = 0
+IF uncertainty\_metric \> 0.7 THEN symbol = 0
+ELSE IF z-score \< -1.0      THEN symbol = -1
+ELSE IF z-score \> +1.0      THEN symbol = +1
+ELSE                             symbol = 0
 
-3. ROUTE TAGS TUPLE
--------------------
-Segments are tagged with a 3-value tuple: [Risk, Stealth, Speed]
+3.  REPORTING TEMPLATE
 
-  Axis     |  -1 (Low/Passive) |  0 (Neutral)  |  +1 (High/Active)
-  ---------|-------------------|---------------|------------------
-  Risk     | Safe Zone         | Unknown       | Danger Zone
-  Stealth  | Silent/Passive    | Normal        | Active Beacon
-  Speed    | Loiter/Hover      | Cruise        | Max Thrust
-
-4. JSON DSL SCHEMA (REFLEX DEFINITION)
---------------------------------------
-New reflexes must adhere to this structure:
-
-{
-  "name": "STRING_ID",
-  "ternary_trigger": {
-    "pattern": [-1, 0, -1],  // Sequence to match
-    "window_sec": 5,         // Time window
-    "tolerance": 0,          // Allowed Hamming distance
-    "sampling_hz": 20        // Frequency
-  },
-  "action_strategy": { ... },
-  "priority": 50,
-  "source": "LLM_EVOLUTION"
-}
-
-5. REPORTING TEMPLATE
----------------------
-The system must output the following log block after session:
+-----
 
 BIOS-LLM-v3.0-TS session end
-ETA: <val> bit/USD
-Reflexes added: <count> (–1×A, 0×B, +1×C)
-Tags updated: <count> segments
-Uncertainty zones: <count>
-Next flight ternary mask seed: [<array>]
-<end>
+ETA: \<val\> bit/USD
+Reflexes added: \<count\> (–1×A, 0×B, +1×C)
+Tags updated: \<count\> segments
+Uncertainty zones: \<count\>
+Next flight ternary mask seed: [\<array\>]
+\<end\>
 
-------------------------------------------------------------
+-----
+
 (c) 2025 SmartBeesSwarm 3CY & Monte Carlo Intelligence Group
