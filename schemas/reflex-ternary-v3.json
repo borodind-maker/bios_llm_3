@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.smartbees.org/reflex-ternary-v3.json",
+  "title": "Ternary Reflex DSL Schema v3",
+  "type": "object",
+  "required": ["name", "ternary_trigger", "action_strategy", "priority", "cooldown"],
+  "properties": {
+    "name": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+    "description": { "type": "string", "maxLength": 90 },
+    "ternary_trigger": {
+      "type": "object",
+      "required": ["pattern", "window_sec", "tolerance"],
+      "properties": {
+        "pattern": {
+          "type": "array",
+          "items": { "type": "integer", "enum": [-1, 0, 1] },
+          "minItems": 1,
+          "maxItems": 60
+        },
+        "window_sec": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "tolerance": { "type": "integer", "minimum": 0 },
+        "sampling_hz": { "type": "integer", "enum": [1, 2, 4, 5, 10, 12, 15, 20, 30, 60] }
+      }
+    },
+    "action_strategy": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["AI_OPTIMIZED", "FIXED", "HYBRID"] },
+        "guidance": { "type": "string", "maxLength": 80 },
+        "constraints": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": [{ "type": "number" }, { "type": "number" }],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      }
+    },
+    "priority": { "type": "integer", "minimum": 0, "maximum": 200 },
+    "cooldown": { "type": "number", "minimum": 3.0 },
+    "source": { "enum": ["LLM_EVOLUTION", "BUILTIN", "BLOCKCHAIN_SYNC", "OPERATOR_CUSTOM"] },
+    "risk_level": { "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] }
+  }
+}
